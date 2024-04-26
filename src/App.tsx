@@ -1,4 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import CreateGroup from './components/CreateGroup';
 import AddMembers from './components/AddMembers';
 import ExpenseMain from './components/ExpenseMain';
@@ -19,7 +21,11 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 }
 
 export default App;
