@@ -1,10 +1,11 @@
+import React, { useState } from 'react';
 import {
   Button, Container, Form, Row,
 } from 'react-bootstrap';
 import { useRecoilState } from 'recoil';
-import React, { useState } from 'react';
-import groupNameState from '../state/groupName';
+import styled from 'styled-components';
 import CenteredOverlayForm from './CenteredOverlayForm';
+import groupNameState from '../state/groupName';
 
 type HandleSubmitType = (event: React.FormEvent<HTMLFormElement>) => void;
 type OnChangeType = (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -30,34 +31,64 @@ function CreateGroup() {
     setGroupName(event.target.value);
   };
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   return (
-    <div>
-      <h1>Dutch Pay</h1>
+    <CenteredOverlayForm>
       <Container>
         <Form validated={validated} onSubmit={handleSubmit}>
-          <Row>
-            <h2>먼저, 더치 페이 할 그룹의 이름을 정해볼까요?</h2>
-          </Row>
-          <Row>
-            <Form.Group controlId="validationGroupName">
-              <Form.Control
-                type="text"
-                required
-                placeholder="그룹 이름을 입력해 주세요"
-                onChange={onChange}
-                value={groupName}
-              />
-              <Form.Control.Feedback type="invalid" data-valid={validGroupName}>그룹 이름을 입력해 주세요.</Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <Row>
-            <Button type="submit">저장</Button>
-          </Row>
+          <StyledRow>
+            <Row className="align-items-start">
+              <StyledH2>먼저, 더치 페이 할 그룹의 이름을 정해볼까요?</StyledH2>
+            </Row>
+            <Row className="align-items-center">
+              <Form.Group controlId="validationGroupName">
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="그룹 이름을 입력해 주세요"
+                  onChange={onChange}
+                  value={groupName}
+                />
+                <Form.Control.Feedback type="invalid" data-valid={validGroupName}>그룹 이름을 입력해 주세요.</Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row className="align-items-end">
+              <StyledSubmitButton>저장</StyledSubmitButton>
+            </Row>
+          </StyledRow>
         </Form>
       </Container>
-      <CenteredOverlayForm />
-    </div>
+    </CenteredOverlayForm>
   );
 }
+
+const StyledRow = styled(Row)`
+    height: 60vh;
+    align-items: center;
+    justify-content: center;
+`;
+
+const StyledH2 = styled.h2`
+    font-weight: 700;
+    line-height: 35px;
+    text-align: right;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+`;
+
+const StyledSubmitButton = styled(Button).attrs({
+  type: 'submit',
+})`
+    background-color: #6610F2;
+    border-radius: 8px;
+    border: none;
+    
+    &:hover {
+        background-color: #6610F2;
+        filter: brightness(80%);
+    }
+`;
 
 export default CreateGroup;
