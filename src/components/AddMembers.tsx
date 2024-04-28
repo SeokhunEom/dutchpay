@@ -1,48 +1,35 @@
-import {
-  Button, Container, Form, Row,
-} from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { InputTags } from 'react-bootstrap-tagsinput';
-import CenteredOverlayForm from './shared/CenteredOverlayForm.tsx';
+import styled from 'styled-components';
+import CenteredOverlayForm from './shared/CenteredOverlayForm';
 import groupMembersState from '../state/GroupMembers';
 import groupNameState from '../state/groupName';
-import { StyledH2, StyledRow, StyledSubmitButton } from './CreateGroup.tsx';
 
 type HandleSubmitType = (event: React.FormEvent<HTMLFormElement>) => void;
 
 function AddMembers() {
   const [groupMembers, setGroupMembers] = useRecoilState(groupMembersState);
   const groupName = useRecoilValue(groupNameState);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const title = `${groupName} 그룹에 추가할 멤버들의 이름을 입력해 주세요.`;
+
   const handleSubmit: HandleSubmitType = (event) => {
     event.preventDefault();
-    setFormSubmitted(true);
+
+    setValidated(true);
   };
 
   return (
-    <CenteredOverlayForm>
-      <Container>
-        <Form noValidate onSubmit={handleSubmit}>
-          <StyledRow>
-            <Row>
-              <StyledH2>
-                {groupName}
-                에 속한 사람들의 이름을 모두 적어 주세요.
-              </StyledH2>
-            </Row>
-            <Row className="aligin-items-center">
-              <InputTags placeholder="이름 간에 띄어 쓰기" onTags={(value) => setGroupMembers(value.values)} />
-            </Row>
-            {formSubmitted && groupMembers.length === 0 && <span>그룹 멤버들의 이름을 입력해 주세요.</span>}
-            <Row className="aligin-items-end">
-              <StyledSubmitButton>저장</StyledSubmitButton>
-            </Row>
-          </StyledRow>
-        </Form>
-      </Container>
+    <CenteredOverlayForm title={title} validated={validated} handleSubmit={handleSubmit}>
+      <InputTags placeholder="이름 간에 띄어 쓰기" onTags={(value) => setGroupMembers(value.values)} />
+      {validated && groupMembers.length === 0 && <StyledErrorMessage>그룹 멤버들의 이름을 입력해 주세요.</StyledErrorMessage>}
     </CenteredOverlayForm>
   );
 }
+
+const StyledErrorMessage = styled.span`
+    color: red;
+`;
 
 export default AddMembers;
