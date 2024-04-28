@@ -31,9 +31,6 @@ function CreateGroup() {
     setGroupName(event.target.value);
   };
 
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
   return (
     <CenteredOverlayForm>
       <Container>
