@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { InputTags } from 'react-bootstrap-tagsinput';
 import styled from 'styled-components';
 import CenteredOverlayForm from './shared/CenteredOverlayForm';
-import groupMembersState from '../state/GroupMembers';
+import groupMembersState from '../state/groupMembers';
 import groupNameState from '../state/groupName';
 
 type HandleSubmitType = (event: React.FormEvent<HTMLFormElement>) => void;
