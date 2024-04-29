@@ -22,7 +22,7 @@ function AddMembers() {
 
   return (
     <CenteredOverlayForm title={title} validated={validated} handleSubmit={handleSubmit}>
-      <InputTags placeholder="이름 간에 띄어 쓰기" data-testId="input-member-names" onTags={(value) => setGroupMembers(value.values)} />
+      <InputTags placeholder="이름 간에 띄어 쓰기" data-testid="input-member-names" onTags={(value) => setGroupMembers(value.values)} />
       {validated && groupMembers.length === 0 && <StyledErrorMessage>그룹 멤버들의 이름을 입력해 주세요.</StyledErrorMessage>}
     </CenteredOverlayForm>
   );
