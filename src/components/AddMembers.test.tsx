@@ -1,6 +1,7 @@
+import { describe, expect, test } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import { RecoilRoot } from 'recoil';
 import AddMembers from './AddMembers';
 
