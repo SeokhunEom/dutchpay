@@ -23,5 +23,6 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "object-curly-newline": "off",
   },
 }
