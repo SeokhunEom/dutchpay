@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { RecoilRoot } from 'recoil';
@@ -14,7 +14,7 @@ const renderComponent = () => {
     </RecoilRoot>,
   );
 
-  const dataInput = screen.getByPlaceholderText(/결제한 날짜/i);
+  const dateInput = screen.getByPlaceholderText(/결제한 날짜/i);
   const descInput = screen.getByPlaceholderText(/비용에 대한 설명/i);
   const amountInput = screen.getByPlaceholderText(/비용은 얼마/i);
   const payerInput = screen.getByDisplayValue(/누가 결제/i);
@@ -24,7 +24,7 @@ const renderComponent = () => {
   const payerErrorMessage = screen.getByText('결제자를 선택해 주셔야 합니다.');
 
   return {
-    dataInput,
+    dateInput,
     descInput,
     amountInput,
     payerInput,
@@ -38,9 +38,9 @@ const renderComponent = () => {
 describe('비용 정산 메인 페이지', () => {
   describe('비용 추가 컴포넌트', () => {
     test('비용 추가 컴포넌트 렌더링', () => {
-      const { dataInput, descInput, amountInput, payerInput, addButton } = renderComponent();
+      const { dateInput, descInput, amountInput, payerInput, addButton } = renderComponent();
 
-      expect(dataInput).toBeInTheDocument();
+      expect(dateInput).toBeInTheDocument();
       expect(descInput).toBeInTheDocument();
       expect(amountInput).toBeInTheDocument();
       expect(payerInput).toBeInTheDocument();
@@ -70,6 +70,45 @@ describe('비용 정산 메인 페이지', () => {
       expect(descErrorMessage && descErrorMessage.getAttribute('data-valid')).toBe('true');
       expect(amountErrorMessage && amountErrorMessage.getAttribute('data-valid')).toBe('true');
       expect(payerErrorMessage && payerErrorMessage.getAttribute('data-valid')).toBe('true');
+    });
+  });
+
+  describe('비용 리스트 컴포넌트', () => {
+    test('비용 리스트 컴포넌트가 렌더링 되는가?', () => {
+      renderComponent();
+      const expenseListComponent = screen.getByTestId('expenseList');
+
+      expect(expenseListComponent).toBeInTheDocument();
+    });
+  });
+
+  describe('새로운 비용이 입력 되었을 때,', () => {
+    const addNewExpense = async () => {
+      const { dateInput, descInput, payerInput, amountInput, addButton } = renderComponent();
+
+      await userEvent.type(dateInput, '2024-05-02');
+      await userEvent.type(descInput, '장보기');
+      await userEvent.type(amountInput, '30000');
+      await userEvent.selectOptions(payerInput, '영수');
+      await userEvent.click(addButton);
+    };
+
+    test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가 된다.', () => {
+      renderComponent();
+      addNewExpense();
+      const expenseListComponent = screen.getByTestId('expenseList');
+
+      const dateValue = within(expenseListComponent).getByText('2024-05-02');
+      expect(dateValue).toBeInTheDocument();
+
+      const payerValue = within(expenseListComponent).getByText('영수');
+      expect(payerValue).toBeInTheDocument();
+
+      const descValue = within(expenseListComponent).getByText('장보기');
+      expect(descValue).toBeInTheDocument();
+
+      const amountValue = within(expenseListComponent).getByText('30000 원');
+      expect(amountValue).toBeInTheDocument();
     });
   });
 });
