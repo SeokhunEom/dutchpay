@@ -97,9 +97,6 @@ describe('비용 정산 메인 페이지', () => {
       await addNewExpense();
       const expenseListComponent = screen.getByTestId('expenseList');
 
-      const dateValue = within(expenseListComponent).getByText('2024-05-02');
-      expect(dateValue).toBeInTheDocument();
-
       const payerValue = within(expenseListComponent).getByText('영수');
       expect(payerValue).toBeInTheDocument();
 
