@@ -1,4 +1,5 @@
-import AddExpenseForm from './AddExpenseForm.tsx';
+import AddExpenseForm from './AddExpenseForm';
+import ExpenseTable from './ExpenseTable';
 
 function ExpenseMain() {
   return (
@@ -7,7 +8,9 @@ function ExpenseMain() {
       <div>
         <AddExpenseForm />
       </div>
-      <div>그룹명 헤더 / 비용 리스트 컴포넌트</div>
+      <div>
+        <ExpenseTable />
+      </div>
     </div>
   );
 }

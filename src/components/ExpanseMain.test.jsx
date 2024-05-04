@@ -93,9 +93,8 @@ describe('비용 정산 메인 페이지', () => {
       await userEvent.click(addButton);
     };
 
-    test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가 된다.', () => {
-      renderComponent();
-      addNewExpense();
+    test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가 된다.', async () => {
+      await addNewExpense();
       const expenseListComponent = screen.getByTestId('expenseList');
 
       const dateValue = within(expenseListComponent).getByText('2024-05-02');
