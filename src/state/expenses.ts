@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-interface IExpense {
+export interface IExpense {
   date: string;
   desc: string;
   amount: number;
