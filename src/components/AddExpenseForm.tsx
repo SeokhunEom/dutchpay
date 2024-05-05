@@ -138,7 +138,7 @@ const StyledFormGroup = styled(Form.Group)`
     }
 `;
 
-const StyledTitle = styled.h3`
+export const StyledTitle = styled.h3`
     color: #FFFBF8;
     text-align: center;
     font-weight: 700;

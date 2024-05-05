@@ -24,17 +24,19 @@ function ExpenseMain() {
 
 function LeftPane() {
   return (
-    <StyledContainer>
-      <Row>
-        <ServiceLogo />
-      </Row>
-      <Row>
-        <AddExpenseForm />
-      </Row>
-      <Row>
-        <SettlementSummary />
-      </Row>
-    </StyledContainer>
+    <Container>
+      <StyledGapRow>
+        <Row>
+          <ServiceLogo />
+        </Row>
+        <Row>
+          <AddExpenseForm />
+        </Row>
+        <Row>
+          <SettlementSummary />
+        </Row>
+      </StyledGapRow>
+    </Container>
   );
 }
 
@@ -42,19 +44,25 @@ function RightPane() {
   const groupName = useRecoilValue(groupNameState);
 
   return (
-    <StyledContainer>
+    <StyledRightPaneWrapper>
       <Row>
         <StyledGroupName>{groupName || '그룹 이름'}</StyledGroupName>
       </Row>
       <Row>
         <ExpenseTable />
       </Row>
-    </StyledContainer>
+    </StyledRightPaneWrapper>
   );
 }
 
-const StyledContainer = styled(Container)`
+const StyledRightPaneWrapper = styled(Container)`
   padding: 100px 31px 100px 31px;
+`;
+
+const StyledGapRow = styled(Row)`
+  gap: 5vh;
+  padding-top: 100px;
+  justify-content: center;
 `;
 
 const StyledGroupName = styled.h2`

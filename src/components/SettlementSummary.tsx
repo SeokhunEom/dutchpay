@@ -1,6 +1,8 @@
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 import expensesState, { IExpense } from '../state/expenses';
 import groupMembersState from '../state/groupMembers';
+import { StyledTitle } from './AddExpenseForm';
 
 interface ITransaction {
   receiver: string;
@@ -23,27 +25,29 @@ function SettlementSummary() {
   const minimumTransaction: ITransaction[] = calculateMinimumTransaction(expenses, members, splitAmount);
 
   return (
-    <div>
-      <h3>2. 정산은 이렇게!</h3>
+    <StyledWrapper>
+      <StyledTitle>2. 정산은 이렇게!</StyledTitle>
       {totalExpenseAmount > 0 && groupMembersCount > 0 && (
         <>
-          <span>
-            {groupMembersCount}
-            {' '}
-            명이서 총
-            {' '}
-            {totalExpenseAmount}
-            {' '}
-            원 지출
-          </span>
-          <span>
-            한 사람 당
-            {' '}
-            {splitAmount}
-            {' '}
-            원
-          </span>
-          <ul>
+          <StyledSummary>
+            <span>
+              {groupMembersCount}
+              {' '}
+              명이서 총
+              {' '}
+              {totalExpenseAmount}
+              {' '}
+              원 지출
+            </span>
+            <span>
+              한 사람 당
+              {' '}
+              {splitAmount}
+              {' '}
+              원
+            </span>
+          </StyledSummary>
+          <StyledUl>
             {minimumTransaction.map((transaction, index) => (
               <li key={index}>
                 <span>
@@ -59,12 +63,43 @@ function SettlementSummary() {
                 </span>
               </li>
             ))}
-          </ul>
+          </StyledUl>
         </>
       )}
-    </div>
+    </StyledWrapper>
   );
 }
+
+const StyledWrapper = styled.div`
+    padding: 50px;
+    background-color: #683BA1;
+    color: #FFFBFB;
+    box-shadow: 3px 0 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    text-align: center;
+    font-size: 22px;
+`;
+
+const StyledSummary = styled.div`
+    margin-top: 31px;
+`;
+
+const StyledUl = styled.ul`
+    margin-top: 31px;
+    font-weight: 600;
+    line-height: 200%;
+    
+    list-style-type: disclosure-closed;
+    li::marker {
+        animation: blinker 1.5s linear infinite;
+    }
+    
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+`;
 
 function calculateMinimumTransaction(expenses: IExpense[], members: string[], amountPerPerson: number): ITransaction[] {
   const minTransactions: ITransaction[] = [];
