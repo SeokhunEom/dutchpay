@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import AddExpenseForm from './AddExpenseForm';
 import ExpenseTable from './ExpenseTable';
 import groupNameState from '../state/groupName';
+import ServiceLogo from './shared/ServiceLogo';
 
 function ExpenseMain() {
   return (
@@ -23,7 +24,12 @@ function ExpenseMain() {
 function LeftPane() {
   return (
     <StyledContainer>
-      <AddExpenseForm />
+      <Row>
+        <ServiceLogo />
+      </Row>
+      <Row>
+        <AddExpenseForm />
+      </Row>
     </StyledContainer>
   );
 }

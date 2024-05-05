@@ -4,6 +4,7 @@ import {
   Button, Container, Form, Row,
 } from 'react-bootstrap';
 import OverlayWrapper from './OverlayWrapper';
+import ServiceLogo from './ServiceLogo';
 
 type CenteredOverlayFormProps = {
   title: string;
@@ -17,7 +18,7 @@ function CenteredOverlayForm({
 }: CenteredOverlayFormProps) {
   return (
     <StyledCentralizedContainer>
-      <StyledLogo>Dutch Pay</StyledLogo>
+      <ServiceLogo />
       <OverlayWrapper>
         <Form validated={validated} onSubmit={handleSubmit}>
           <StyledCentralizedContent>
@@ -36,14 +37,6 @@ function CenteredOverlayForm({
     </StyledCentralizedContainer>
   );
 }
-
-const StyledLogo = styled.h1`
-    font-weight: 200;
-    letter-spacing: 10px;
-    color: slateblue;
-    text-align: center;
-    margin-bottom: 0.8em;
-`;
 
 const StyledCentralizedContainer = styled(Container)`
     width: 50vw;
