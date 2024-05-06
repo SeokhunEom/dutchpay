@@ -4,6 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { RecoilRoot } from 'recoil';
+import htmlToImage from 'html-to-image';
 import ExpenseMain from './ExpenseMain';
 import groupMembersState from '../state/groupMembers';
 
@@ -128,11 +129,13 @@ describe('비용 정산 메인 페이지', () => {
     });
 
     test('정산 결과를 이미지 파일로 저장할 수 있다.', async () => {
+      const spiedToPng = vi.spyOn(htmlToImage, 'toPng');
       const downloadBtn = screen.getByTestId('btn-download');
       expect(downloadBtn).toBeInTheDocument();
 
       await userEvent.click(downloadBtn);
-      // 다운로드가 되었는지 확인할 수 있는 방법을 테스팅
+
+      expect(spiedToPng).toHaveBeenCalledTimes(1);
     });
   });
 });
