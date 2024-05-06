@@ -91,7 +91,6 @@ function AddExpenseForm() {
                 <option disabled value="">
                   누가 결제 했나요?
                 </option>
-                <option>영수</option>
                 {members.map((member) => <option key={member} value={member}>{member}</option>)}
               </Form.Select>
               <Form.Control.Feedback type="invalid" data-valid={isPayerValid}>결제자를 선택해 주셔야 합니다.</Form.Control.Feedback>
