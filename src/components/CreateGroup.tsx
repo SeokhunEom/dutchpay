@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import CenteredOverlayForm from './shared/CenteredOverlayForm';
 import groupNameState from '../state/groupName';
+import ROUTES from '../routes';
 
 type HandleSubmitType = (event: React.FormEvent<HTMLFormElement>) => void;
 type OnChangeType = (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,6 +13,7 @@ function CreateGroup() {
   const [validated, setValidated] = useState(false);
   const [validGroupName, setValidGroupName] = useState(false);
   const setGroupName = useSetRecoilState(groupNameState);
+  const navigate = useNavigate();
   const title = '먼저, 더치 페이 할 그룹의 이름을 정해볼까요?';
 
   const handleSubmit:HandleSubmitType = (event) => {
@@ -21,6 +24,7 @@ function CreateGroup() {
       setValidGroupName(false);
     } else {
       setValidGroupName(true);
+      navigate(ROUTES.ADD_MEMBERS);
     }
     setValidated(true);
   };

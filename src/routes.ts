@@ -1,0 +1,7 @@
+const ROUTES = {
+  CREATE_GROUP: '/group',
+  ADD_MEMBERS: '/members',
+  EXPENSE_MAIN: '/expense',
+};
+
+export default ROUTES;

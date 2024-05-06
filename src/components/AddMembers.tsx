@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { InputTags } from 'react-bootstrap-tagsinput';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import CenteredOverlayForm from './shared/CenteredOverlayForm';
 import groupMembersState from '../state/groupMembers';
 import groupNameState from '../state/groupName';
+import ROUTES from '../routes';
 
 type HandleSubmitType = (event: React.FormEvent<HTMLFormElement>) => void;
 
@@ -12,12 +14,14 @@ function AddMembers() {
   const [groupMembers, setGroupMembers] = useRecoilState(groupMembersState);
   const groupName = useRecoilValue(groupNameState);
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
   const title = `${groupName} 그룹에 추가할 멤버들의 이름을 입력해 주세요.`;
 
   const handleSubmit: HandleSubmitType = (event) => {
     event.preventDefault();
 
     setValidated(true);
+    if (groupMembers.length > 0) navigate(ROUTES.EXPENSE_MAIN);
   };
 
   return (
