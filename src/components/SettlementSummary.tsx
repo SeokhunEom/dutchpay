@@ -1,5 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
+import { toPng } from 'html-to-image';
+import { useRef } from 'react';
+import { Download } from 'react-bootstrap-icons';
 import expensesState, { IExpense } from '../state/expenses';
 import groupMembersState from '../state/groupMembers';
 import { StyledTitle } from './AddExpenseForm';
@@ -17,6 +21,7 @@ interface IMembersToPay {
 function SettlementSummary() {
   const expenses = useRecoilValue(expensesState);
   const members = useRecoilValue(groupMembersState);
+  const wrapperElement = useRef(null);
 
   const totalExpenseAmount = expenses.reduce((prevAmount, curExpense) => prevAmount + curExpense.amount, 0);
   const groupMembersCount = members.length;
@@ -24,8 +29,22 @@ function SettlementSummary() {
 
   const minimumTransaction: ITransaction[] = calculateMinimumTransaction(expenses, members, splitAmount);
 
+  const exportToImage = () => {
+    if (!wrapperElement.current) return;
+    toPng(wrapperElement.current, {
+      filter: (node) => node.tagName !== 'BUTTON',
+    }).then((dataURL) => {
+      const link = document.createElement('a');
+      link.download = 'settlement_summary.png';
+      link.href = dataURL;
+      link.click();
+    }).catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={wrapperElement}>
       <StyledTitle>2. 정산은 이렇게!</StyledTitle>
       {totalExpenseAmount > 0 && groupMembersCount > 0 && (
         <>
@@ -64,6 +83,9 @@ function SettlementSummary() {
               </li>
             ))}
           </StyledUl>
+          <StyledButton data-testid="btn-download" onClick={exportToImage}>
+            <Download />
+          </StyledButton>
         </>
       )}
     </StyledWrapper>
@@ -78,6 +100,7 @@ const StyledWrapper = styled.div`
     border-radius: 15px;
     text-align: center;
     font-size: 22px;
+    position: relative;
 `;
 
 const StyledSummary = styled.div`
@@ -98,6 +121,19 @@ const StyledUl = styled.ul`
         50% {
             opacity: 0;
         }
+    }
+`;
+
+const StyledButton = styled(Button)`
+    background: none;
+    border: none;
+    font-size: 25px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    
+    &:hover, &:active {
+        background: none;
     }
 `;
 
