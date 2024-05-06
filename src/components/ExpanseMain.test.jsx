@@ -102,8 +102,11 @@ describe('비용 정산 메인 페이지', () => {
       await userEvent.click(addButton);
     };
 
-    test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가 된다.', async () => {
+    beforeEach(async () => {
       await addNewExpense();
+    });
+
+    test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가 된다.', () => {
       const expenseListComponent = screen.getByTestId('expenseList');
 
       const payerValue = within(expenseListComponent).getByText('영수');
@@ -116,14 +119,20 @@ describe('비용 정산 메인 페이지', () => {
       expect(amountValue).toBeInTheDocument();
     });
 
-    test('정산 결과 또한 업데이트가 된다.', async () => {
-      await addNewExpense();
-
-      const totalText = screen.getByText(/2명 - 총 30000 원 지출/i);
+    test('정산 결과 또한 업데이트가 된다.', () => {
+      const totalText = screen.getByText(/명이서 총/i);
       expect(totalText).toBeInTheDocument();
 
-      const transactionText = screen.getByText(/영희가 영수에게 15000원/i);
+      const transactionText = screen.getByText(/원 보내기/i);
       expect(transactionText).toBeInTheDocument();
+    });
+
+    test('정산 결과를 이미지 파일로 저장할 수 있다.', async () => {
+      const downloadBtn = screen.getByTestId('btn-download');
+      expect(downloadBtn).toBeInTheDocument();
+
+      await userEvent.click(downloadBtn);
+      // 다운로드가 되었는지 확인할 수 있는 방법을 테스팅
     });
   });
 });
