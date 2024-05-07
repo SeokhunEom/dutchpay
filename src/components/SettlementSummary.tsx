@@ -1,6 +1,5 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Button } from 'react-bootstrap';
 import { toPng } from 'html-to-image';
 import { useRef } from 'react';
 import { Download } from 'react-bootstrap-icons';
@@ -124,13 +123,14 @@ const StyledUl = styled.ul`
     }
 `;
 
-const StyledButton = styled(Button)`
+const StyledButton = styled.button`
     background: none;
     border: none;
     font-size: 25px;
     position: absolute;
     top: 15px;
     right: 20px;
+    color: #E2D9F3;
     
     &:hover, &:active {
         background: none;

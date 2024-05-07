@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Button, Container, Form, Row,
-} from 'react-bootstrap';
+import { Container, Form, Row } from 'react-bootstrap';
 import OverlayWrapper from './OverlayWrapper';
 import ServiceLogo from './ServiceLogo';
 
@@ -29,7 +27,7 @@ function CenteredOverlayForm({
               {children}
             </Row>
             <Row className="align-items-end">
-              <StyledSubmitButton>저장</StyledSubmitButton>
+              <StyledSubmitButton type="submit">저장</StyledSubmitButton>
             </Row>
           </StyledCentralizedContent>
         </Form>
@@ -63,15 +61,16 @@ const StyledTitle = styled.h2`
     word-break: keep-all;
 `;
 
-const StyledSubmitButton = styled(Button).attrs({
-  type: 'submit',
-})`
+const StyledSubmitButton = styled.button`
     background-color: #6610F2;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     border: none;
-    
+    color: white;
+    width: 100%;
+    height: 40px;
+
     &:hover {
-        background-color: #6610F2;
         filter: brightness(80%);
     }
 `;

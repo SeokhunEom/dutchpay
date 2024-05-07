@@ -1,4 +1,4 @@
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -99,7 +99,7 @@ function AddExpenseForm() {
         </Row>
         <Row>
           <Col sx={12} className="d-grid gap-2">
-            <StyledSubmitButton>추가하기</StyledSubmitButton>
+            <StyledSubmitButton type="submit">추가하기</StyledSubmitButton>
           </Col>
         </Row>
       </Form>
@@ -147,7 +147,7 @@ export const StyledTitle = styled.h3`
     margin-bottom: 15px;
 `;
 
-const StyledSubmitButton = styled(Button).attrs({ type: 'submit' })`
+const StyledSubmitButton = styled.button`
     width: 100%;
     height: 60px;
     padding: 16px 32px;
@@ -158,8 +158,7 @@ const StyledSubmitButton = styled(Button).attrs({ type: 'submit' })`
     margin-top: 10px;
     
     &:hover {
-        background-color: #E2D9F3;
-        filter: rgba(0, 0, 0, 0.3);
+        filter: brightness(80%);
     }
 `;
 
