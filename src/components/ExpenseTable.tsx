@@ -17,7 +17,7 @@ function ExpenseTable() {
             <th>금액</th>
           </tr>
         </StyledThead>
-        <tbody>
+        <StyledBody>
           {expenses.map(({ date, desc, amount, payer }, index) => (
             <tr key={index}>
               <td>{date}</td>
@@ -26,7 +26,7 @@ function ExpenseTable() {
               <td>{amount} 원</td>
             </tr>
           ))}
-        </tbody>
+        </StyledBody>
       </Table>
     </OverlayWrapper>
   );
