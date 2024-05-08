@@ -9,7 +9,7 @@ import ServiceLogo from './shared/ServiceLogo';
 
 function ExpenseMain() {
   return (
-    <Container fluid>
+    <StyledContainer fluid>
       <Row>
         <Col xs={12} sm={5} md={5}>
           <LeftPane />
@@ -18,7 +18,7 @@ function ExpenseMain() {
           <RightPane />
         </Col>
       </Row>
-    </Container>
+    </StyledContainer>
   );
 }
 
@@ -54,6 +54,10 @@ function RightPane() {
     </StyledRightPaneWrapper>
   );
 }
+
+const StyledContainer = styled(Container)`
+  padding-bottom: 30px;
+`;
 
 const StyledRightPaneWrapper = styled(Container)`
   padding: 100px 31px 100px 31px;
