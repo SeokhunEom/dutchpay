@@ -11,7 +11,7 @@ function ExpenseMain() {
   return (
     <StyledContainer fluid>
       <Row>
-        <Col xs={12} sm={5} md={5}>
+        <Col xs={12} md={5}>
           <LeftPane />
         </Col>
         <Col>
