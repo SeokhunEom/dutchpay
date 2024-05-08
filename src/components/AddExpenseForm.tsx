@@ -50,6 +50,16 @@ function AddExpenseForm() {
         payer,
       };
       setExpense((expense) => [...expense, newExpense]);
+
+      setDate('');
+      setDesc('');
+      setAmount(0);
+      setPayer('');
+      setValidated(false);
+      setIsDescValid(false);
+      setIsAmountValid(false);
+      setIsPayerValid(false);
+      return;
     }
     setValidated(true);
   };
