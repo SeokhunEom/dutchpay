@@ -45,6 +45,10 @@ const StyledCentralizedContainer = styled(Container)`
     align-items: center;
     padding: 0px;
     gap: 10px;
+    
+    @media (max-width: 500px) {
+        width: 80vw;
+    }
 `;
 
 const StyledCentralizedContent = styled(Row)`
